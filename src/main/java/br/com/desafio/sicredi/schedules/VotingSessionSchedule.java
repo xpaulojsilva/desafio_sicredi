@@ -16,7 +16,7 @@ public class VotingSessionSchedule {
 	PautaServiceImp pautaService;
 	
 	@Bean
-	@Scheduled(cron = "0 * * * * *")
+	@Scheduled(cron = "0/10 * * * * *")
 	public void updateBase() {
 		pautaService.updateCompletedPautas();
 	}
