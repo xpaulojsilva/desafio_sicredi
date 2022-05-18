@@ -32,7 +32,6 @@ public class PautaDto {
 	public PautaDto() {}
 	
 	public PautaDto(Pauta pauta) {
-		BeanUtils.copyProperties(pauta, this);
 		BeanUtils.copyProperties(pauta, this, "inicio", "fim");
 		
 		if (pauta.getInicio() != null) 
