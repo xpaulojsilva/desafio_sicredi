@@ -1,5 +1,7 @@
 package br.com.desafio.sicredi.service.impl;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,11 +49,12 @@ public class VotoServiceImp implements IVotoService {
 		if(pauta.isEmpty()) {
 			throw new PautaNotFoundException("Pauta não existente no banco de dados");
 		
-		} else if(pauta.get().getStatus().equals(StatusVotacao.AGUARDANDO)) {
+		} else if(pauta.get().getStatus().equals(StatusVotacao.AGUARDANDO.getStatus())) {
 			throw new VotingSessionIsClosedException("A sessão de votação para pauta: " + pauta.get().getStatus() + " ainda não foi inicializada");
 			
-		} else if(pauta.get().getStatus().equals(StatusVotacao.FINALIZADA)) {
-			throw new VotingSessionIsClosedException("A sessão de votação para pauta: " + pauta.get().getStatus() + " está finalizada");
+		} else if(pauta.get().getStatus().equals(StatusVotacao.FINALIZADA.getStatus()) || LocalDateTime.now().isAfter(pauta.get().getFim())) {
+			throw new VotingSessionIsClosedException("A sessão de votação para pauta: " + pauta.get().getStatus() +
+					" encerrou em: " + pauta.get().getFim().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
 		}
 		
 		Optional<Associado> associado = associadoRepository.findById(newVotoDto.getAssociado());
@@ -59,10 +62,10 @@ public class VotoServiceImp implements IVotoService {
 		if(associado.isEmpty()) 
 			throw new AssociadoNotFoundException("Associado não existente no banco de dados");
 		
-		if(!newVotoDto.getValor().equals("Sim") && !newVotoDto.getValor().equals("Não")) 
+		if(!newVotoDto.getTipo().equals("Sim") && !newVotoDto.getTipo().equals("Não")) 
 			throw new IllegalArgumentException("Os valores aceitos para votos são apenas 'Sim'/'Não'!");
 
-		Voto savedVoto = votoRepository.save(new Voto(associado.get(), pauta.get(), newVotoDto.getValor().equals("Sim")));
+		Voto savedVoto = votoRepository.save(new Voto(associado.get(), pauta.get(), newVotoDto.getTipo()));
 		return new VotoDto(savedVoto);
 	}
 	

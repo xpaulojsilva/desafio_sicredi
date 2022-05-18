@@ -9,5 +9,5 @@ public class NewVotoDto {
 	
 	private long pauta;
 
-	private String valor;
+	private String tipo;
 }

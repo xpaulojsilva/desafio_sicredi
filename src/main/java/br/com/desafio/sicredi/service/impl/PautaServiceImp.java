@@ -17,6 +17,7 @@ import br.com.desafio.sicredi.dto.InicializerPautaDto;
 import br.com.desafio.sicredi.dto.NewPautaDto;
 import br.com.desafio.sicredi.dto.PautaDto;
 import br.com.desafio.sicredi.enums.StatusVotacao;
+import br.com.desafio.sicredi.enums.TipoVoto;
 import br.com.desafio.sicredi.exception.PautaIsAlreadyStartedException;
 import br.com.desafio.sicredi.exception.PautaIsExistException;
 import br.com.desafio.sicredi.exception.PautaNotFoundException;
@@ -69,7 +70,7 @@ public class PautaServiceImp implements IPautaService {
 			List<Voto> votos = votoRepository.findByPautaId(pauta.getId());
 			if (!votos.isEmpty()) {
 				int size = votos.size();
-				long votosAFavor = votos.stream().filter(v -> v.isValor()).count();
+				long votosAFavor = votos.stream().filter(v -> v.getTipo().equals(TipoVoto.SIM.getTipo())).count();
 				pauta.setVotosAFavor(votosAFavor);
 				pauta.setVotosContra(size - votosAFavor);
 			}

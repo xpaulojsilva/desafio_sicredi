@@ -21,12 +21,12 @@ public class Voto {
 	@ManyToOne
 	private Pauta pauta;
 
-	private boolean valor;
+	private String tipo;
 	
 	public Voto() {}
 
-	public Voto(Associado associado, Pauta pauta, boolean valor) {
-		this.valor = valor;
+	public Voto(Associado associado, Pauta pauta, String tipo) {
+		this.tipo = tipo;
 		this.associado = associado;
 		this.pauta = pauta;
 	}

@@ -12,13 +12,13 @@ public class VotoDto {
 	
 	private long pautaDto;
 
-	private String valor;
+	private String tipo;
 	
 	public VotoDto() {}
 
 	public VotoDto(Voto voto) {
 		this.id = voto.getId();
-		this.valor = voto.isValor() ? "Sim" : "Não";
+		this.tipo = voto.getTipo();
 		this.associado = voto.getAssociado().getId();
 		this.pautaDto = voto.getPauta().getId();;
 	}
