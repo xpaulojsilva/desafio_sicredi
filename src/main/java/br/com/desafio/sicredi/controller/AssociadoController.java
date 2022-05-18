@@ -43,7 +43,7 @@ public class AssociadoController {
 	}	
 
 	@ApiOperation(value = "Return list of all associados.")
-	@GetMapping("/all")
+	@GetMapping
 	public ResponseEntity<Page<AssociadoDto>> getAllAssociados(
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "limit", defaultValue = "500") int limit,

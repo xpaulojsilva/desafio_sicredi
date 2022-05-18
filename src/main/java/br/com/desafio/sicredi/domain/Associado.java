@@ -16,12 +16,11 @@ public class Associado {
 	private String nome;
 
 	private String cpf;
+
+	public Associado(){	}
 	
 	public Associado(String nome, String cpf) {
 		this.nome = nome;
 		this.cpf = cpf;
-	}
-	
-	public Associado(){
 	}
 }

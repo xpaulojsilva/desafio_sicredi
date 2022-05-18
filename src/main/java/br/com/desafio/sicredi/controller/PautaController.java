@@ -50,16 +50,28 @@ public class PautaController {
 	}	
 
 	@ApiOperation(value = "Return list of all pautas.")
-	@GetMapping("/all")
+	@GetMapping("")
 	public ResponseEntity<Page<PautaDto>> getAllPautas(
 			@RequestParam(value = "page", defaultValue = "0") int page,
-			@RequestParam(value = "limit", defaultValue = "500") int limit,
+			@RequestParam(value = "size", defaultValue = "500") int limit,
 			@RequestParam(value = "direction", defaultValue = "asc") String direction) {
 
 		Sort.Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
 		Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "nome"));
 		Page<PautaDto> pautas = pautaService.getAllPautas(pageable);
 		return ResponseEntity.ok(pautas);
+	}
+	
+	@ApiOperation(value = "Return list of all finalized pautas.")
+	@GetMapping("/finalized")
+	public ResponseEntity<Page<PautaDto>> getAllFinalizedPautas(
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "500") int limit,
+			@RequestParam(value = "direction", defaultValue = "asc") String direction) {
+		
+		Sort.Direction sortDirection = "desc".equalsIgnoreCase(direction) ? Direction.DESC : Direction.ASC;
+		Pageable pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "nome"));
+		return ResponseEntity.ok(pautaService.getAllFinalizedPautas(pageable));
 	}
 	
 	@ApiOperation(value = "Delete a exists pauta.")

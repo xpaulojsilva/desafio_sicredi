@@ -27,9 +27,8 @@ public class AssociadoServiceImp implements IAssociadoService {
 	public AssociadoDto createNewAssociado(NewAssociadoDto newAssociadoDto) throws Exception {
 		Optional<Associado> associado = associadoRepository.findByCpf(newAssociadoDto.getCpf());
 		
-		if (associado.isPresent()){ 
+		if (associado.isPresent()) 
 			throw new AssociadoIsExistException("Associado já existe na base de dados");
-		}
 
 		Associado savedAssociado = associadoRepository.save(new Associado(newAssociadoDto.getNome(), newAssociadoDto.getCpf()));
 		return new AssociadoDto(savedAssociado);
@@ -43,7 +42,8 @@ public class AssociadoServiceImp implements IAssociadoService {
 	@Override
 	public AssociadoDto getAssociado(long id) {
 		Optional<Associado> associado = associadoRepository.findById(id);
-		if(associado.isEmpty()) throw new AssociadoNotFoundException("Associado não existente no banco de dados");
+		if(associado.isEmpty()) 
+			throw new AssociadoNotFoundException("Associado não existente no banco de dados");
 		
 		return new AssociadoDto(associado.get());
 	}
@@ -51,7 +51,8 @@ public class AssociadoServiceImp implements IAssociadoService {
 	@Override
 	public ResponseEntity<String> deleteAssociado(long id) {
 		Optional<Associado> associado = associadoRepository.findById(id);
-		if(associado.isEmpty()) throw new AssociadoNotFoundException("Associado não existente no banco de dados");
+		if(associado.isEmpty()) 
+			throw new AssociadoNotFoundException("Associado não existente no banco de dados");
 		
 		associadoRepository.delete(associado.get());
 		return new ResponseEntity<>("Associado deletado com sucesso!", HttpStatus.OK);

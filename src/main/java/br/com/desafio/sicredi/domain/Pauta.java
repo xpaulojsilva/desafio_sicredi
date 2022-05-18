@@ -3,8 +3,6 @@ package br.com.desafio.sicredi.domain;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,16 +27,14 @@ public class Pauta {
 
 	private long votosContra;
 	
-	@Enumerated(EnumType.STRING)
-	private StatusVotacao status = StatusVotacao.AGUARDANDO;
+	private String status;
 	
-	public Pauta() {}
-	
-	public Pauta of() {
-		return this;
+	public Pauta() {
+		this.status = StatusVotacao.AGUARDANDO.getStatus();
 	}
 	
 	public Pauta(String nome) {
+		this.status = StatusVotacao.AGUARDANDO.getStatus();
 		this.nome = nome;
 	}
 }

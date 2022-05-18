@@ -39,7 +39,8 @@ public class VotoServiceImp implements IVotoService {
 	public VotoDto createNewVoto(NewVotoDto newVotoDto) throws Exception {
 		Optional<Voto> voto = votoRepository.findByAssociadoIdAndPautaId(newVotoDto.getAssociado(), newVotoDto.getPauta());
 		
-		if (voto.isPresent()) throw new VotoIsExistException("O associoado: " + voto.get().getAssociado().getNome() + " já votou para pauta: " + voto.get().getPauta().getNome() + "!");
+		if (voto.isPresent()) 
+			throw new VotoIsExistException("O associoado: " + voto.get().getAssociado().getNome() + " já votou para pauta: " + voto.get().getPauta().getNome() + "!");
 		
 		Optional<Pauta> pauta = pautaRepository.findById(newVotoDto.getPauta());
 		
@@ -55,7 +56,8 @@ public class VotoServiceImp implements IVotoService {
 		
 		Optional<Associado> associado = associadoRepository.findById(newVotoDto.getAssociado());
 		
-		if(associado.isEmpty()) throw new AssociadoNotFoundException("Associado não existente no banco de dados");
+		if(associado.isEmpty()) 
+			throw new AssociadoNotFoundException("Associado não existente no banco de dados");
 		
 		if(!newVotoDto.getValor().equals("Sim") && !newVotoDto.getValor().equals("Não")) 
 			throw new IllegalArgumentException("Os valores aceitos para votos são apenas 'Sim'/'Não'!");

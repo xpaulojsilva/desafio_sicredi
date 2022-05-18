@@ -21,4 +21,6 @@ public interface IPautaService {
 	PautaDto getPauta(long id);
 
 	ResponseEntity<String> deletePauta(long id);
+
+	Page<PautaDto> getAllFinalizedPautas(Pageable pageable);
 }
